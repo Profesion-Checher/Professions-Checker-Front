@@ -1,4 +1,6 @@
 <script setup>
+import ProfessionCard from '@/components/ProfessionCard.vue'
+
 import { ref, onMounted } from 'vue'
 
 const data = ref(null)
@@ -26,7 +28,9 @@ onMounted(datos_django)
 <template>
   <div v-if="loading">Cargando...</div>
   <div v-else-if="error" class="error">{{ error }}</div>
-  <pre v-else> {{ data }} </pre>
+  <div v-else class="professions-container">
+    <ProfessionCard v-for="profession in data" :key="profession.pk" :profession="profession" />
+  </div>
 </template>
 
 <style scoped>
