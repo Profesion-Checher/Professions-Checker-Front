@@ -5,7 +5,7 @@ const data = ref(null)
 const loading = ref(true)
 const error = ref(null)
 
-const API_PROFESSIONS = import.meta.VITE_API_PROFESSIONS_URL
+const API_PROFESSIONS = import.meta.env.VITE_API_PROFESSIONS_URL
 
 const datos_django = async () => {
   try {
