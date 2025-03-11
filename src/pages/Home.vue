@@ -2,10 +2,11 @@
 </script>
 
 <template>
-  <h1>
-    Hola Home
-  </h1>
+  <main>
+    <h1>Bienvenido a la Página de Inicio</h1>
+    <p>Esta es la página principal de tu sitio.</p>
+  </main>
 </template>
 
-<style lang="css" scoped>
+<style scoped>
 </style>
