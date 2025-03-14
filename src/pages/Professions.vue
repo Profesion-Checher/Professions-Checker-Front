@@ -12,7 +12,8 @@ const API_PROFESSIONS = import.meta.env.VITE_API_PROFESSIONS_URL
 const datos_django = async () => {
   try {
     const response = await fetch(API_PROFESSIONS)
-    if (!response.ok) throw new Error('Error al obtener datos')
+    if (!response.ok) throw new Error();
+    
 
     data.value = await response.json()
   } catch (err) {
@@ -34,4 +35,12 @@ onMounted(datos_django)
 </template>
 
 <style scoped>
+.professions-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+}
 </style>

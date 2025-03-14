@@ -15,7 +15,7 @@ onMounted(() => {
     new Chart(canvasRef.value, {
       type: "line",
       data: {
-        labels: ["Año 1", "Año 2", "Año 3"],
+        labels: ["2026", "2027", "2028"],
         datasets: [{
           label: "Salario Futuro",
           data: props.profession.future_salaries,
@@ -35,7 +35,6 @@ onMounted(() => {
 });
 </script>
 
-
 <template>
   <div class="profession-card">
     <h2>{{ profession.profession_name }}</h2>
@@ -44,7 +43,6 @@ onMounted(() => {
     <p><strong>Empresas:</strong> {{ profession.companies.join(", ") }}</p>
     <p><strong>Experiencia:</strong> {{ profession.experience }}</p>
 
-    <!-- Canvas para la gráfica -->
     <div class="chart-container">
       <canvas ref="canvasRef"></canvas>
     </div>
@@ -60,10 +58,15 @@ onMounted(() => {
   background-color: #f8f9fa;
   width: 320px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .chart-container {
+  width: 100%;
   height: 200px;
   margin-top: 15px;
 }
 </style>
+
