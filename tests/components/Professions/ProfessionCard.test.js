@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import ProfessionCard from "@/components/ProfessionsComp/ProfessionCard.vue"
+import ProfessionCard from "@/components/Professions/ProfessionCard.vue"
 import { describe, expect } from "vitest";
 import { createRouter, createWebHistory } from "vue-router";
 

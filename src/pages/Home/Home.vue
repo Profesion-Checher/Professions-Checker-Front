@@ -1,5 +1,5 @@
 <script setup>
-import ProfessionBarView from '@/components/ProfessionsComp/ProfessionBarView.vue'
+import ProfessionBarView from '@/components/Professions/ProfessionBarView.vue'
 import { ref, onMounted } from 'vue'
 
 const data = ref(null)

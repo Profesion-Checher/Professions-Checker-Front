@@ -1,5 +1,5 @@
 <script setup>
-import ProfessionCard from '@/components/ProfessionsComp/ProfessionCard.vue'
+import ProfessionCard from '@/components/Professions/ProfessionCard.vue'
 import { ref, onMounted } from 'vue'
 
 const data = ref(null)
