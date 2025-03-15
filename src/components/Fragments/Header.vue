@@ -31,7 +31,7 @@
   */
 
   /* Estilos del header */
-  .header {
+.header {
   position: fixed;
   top: 0;
   left: 0;

@@ -1,6 +1,5 @@
 <script setup>
-import ProfessionBarView from '@/components/ProfessionBarView.vue'
-
+import ProfessionCard from '@/components/ProfessionsComp/ProfessionCard.vue'
 import { ref, onMounted } from 'vue'
 
 const data = ref(null)
@@ -12,8 +11,7 @@ const API_PROFESSIONS = import.meta.env.VITE_API_PROFESSIONS_URL
 const datos_django = async () => {
   try {
     const response = await fetch(API_PROFESSIONS)
-    if (!response.ok) throw new Error('Error al obtener datos')
-
+    if (!response.ok) throw new Error();
     data.value = await response.json()
   } catch (err) {
     error.value = err.message
@@ -22,17 +20,24 @@ const datos_django = async () => {
   }
 } 
 onMounted(datos_django)
+
 </script>
 
 <template>
   <div v-if="loading">Cargando...</div>
   <div v-else-if="error" class="error">{{ error }}</div>
   <div v-else class="professions-container">
-    <ProfessionBarView v-for="profession in data" :key="profession.pk" :profession="profession" />
-   
+    <ProfessionCard v-for="profession in data" :key="profession.id" :profession="profession" />
   </div>
 </template>
 
-
 <style scoped>
+.professions-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+}
 </style>
