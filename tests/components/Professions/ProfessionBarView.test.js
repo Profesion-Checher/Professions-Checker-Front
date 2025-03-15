@@ -1,7 +1,7 @@
-import { mount } from "@vue/test-utils";
-import ProfessionCard from "@/components/Professions/ProfessionCard.vue"
-import { describe, it, expect } from "vitest";
-import { createRouter, createWebHistory } from "vue-router";
+import ProfessionBarView from "@/components/Professions/ProfessionBarView.vue"
+import { mount } from "@vue/test-utils"
+import { describe, it, expect } from "vitest"
+import { createRouter, createWebHistory } from "vue-router"
 
 const profession = {
   profession_name: 'Desarrollador Backend',
@@ -16,10 +16,10 @@ const router = createRouter({
   routes: [{ path: "/", component: {} }]
 })
 
-describe("ProfessionCard", () => {
+describe("ProfessionBarView", () => {
   it("muestra la informacion correcta", async () => {
-    const wrapper = mount(ProfessionCard, {
-      props: { profession },
+    const wrapper = mount(ProfessionBarView, {
+      props: {profession},
       global: {
         plugins: [router]
       }
@@ -27,6 +27,5 @@ describe("ProfessionCard", () => {
 
     expect(wrapper.text()).toContain(profession.profession_name)
     expect(wrapper.text()).toContain(profession.current_salary.toLocaleString())
-    expect(wrapper.text()).toContain(profession.experience)
   })
 })
