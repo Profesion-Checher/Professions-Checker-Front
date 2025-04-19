@@ -4,6 +4,8 @@ import ProfessionCard from '@/components/Professions/ProfessionCard.vue'
 import { useProfessions } from '@/composables/useProfessions.js'
 
 const searchTerm = ref('')
+const minSalary = ref('')
+const maxSalary = ref('')
 const sortMode = ref('normal') // 'normal' | 'desc' | 'asc'
 const { data, loading, error } = useProfessions()
 
@@ -18,18 +20,34 @@ function toggleSortMode() {
   else sortMode.value = 'normal'
 }
 
+// Filtro de profesiones con búsqueda por nombre, salario mínimo y máximo
 const filteredProfessions = computed(() => {
   if (!data.value) return []
 
   const term = searchTerm.value.toLowerCase().trim()
   let professions = data.value
 
+  // Filtro por nombre de profesión
   if (term) {
     professions = professions.filter(p =>
       p.profession_name.toLowerCase().includes(term)
     )
   }
 
+  // Filtro por salario mínimo y máximo
+  if (minSalary.value) {
+    professions = professions.filter(p =>
+      parseFloat(p.current_salary) >= parseFloat(minSalary.value)
+    )
+  }
+
+  if (maxSalary.value) {
+    professions = professions.filter(p =>
+      parseFloat(p.current_salary) <= parseFloat(maxSalary.value)
+    )
+  }
+
+  // Orden por salario
   if (sortMode.value === 'desc') {
     professions = [...professions].sort((a, b) =>
       parseFloat(b.current_salary) - parseFloat(a.current_salary)
@@ -46,6 +64,7 @@ const filteredProfessions = computed(() => {
 
 <template>
   <div>
+    <!-- Buscador por nombre -->
     <input
       v-model="searchTerm"
       type="text"
@@ -53,13 +72,33 @@ const filteredProfessions = computed(() => {
       class="search-bar"
     />
 
+    <!-- Filtro por salario mínimo y máximo -->
+    <div class="salary-filter">
+      <input
+        v-model="minSalary"
+        type="number"
+        placeholder="Salario mínimo"
+        class="salary-input"
+        min="0"
+      />
+      <input
+        v-model="maxSalary"
+        type="number"
+        placeholder="Salario máximo"
+        class="salary-input"
+        min="0"
+      />
+    </div>
+
+    <!-- Botón para ordenar por salario -->
     <button @click="toggleSortMode" class="sort-button">
       Ordenar por salario:
-      <span v-if="sortMode === 'normal'">Normal</span>
+      <span v-if="sortMode === 'normal'">🔁 Normal</span>
       <span v-else-if="sortMode === 'desc'">⬇️ Mayor a menor</span>
       <span v-else>⬆️ Menor a mayor</span>
     </button>
 
+    <!-- Mostrar profesiones -->
     <div v-if="loading">Cargando...</div>
     <div v-else-if="error" class="error">{{ error }}</div>
     <div v-else class="professions-container">
@@ -84,6 +123,21 @@ const filteredProfessions = computed(() => {
   max-width: 400px;
   border: 1px solid #ccc;
   border-radius: 8px;
+  font-size: 16px;
+}
+
+.salary-filter {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px auto;
+}
+
+.salary-input {
+  padding: 10px;
+  width: 150px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
   font-size: 16px;
 }
 
