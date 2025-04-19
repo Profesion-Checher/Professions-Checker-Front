@@ -160,5 +160,29 @@ const acceder = (profession) => {
   height: 200px;
   margin-top: 15px;
 }
+
+/* Estilos para el botón "Ver" */
+button {
+  padding: 10px 20px;
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+button:active {
+  background-color: #003f7f;
+  transform: translateY(0);
+}
 </style>
 
