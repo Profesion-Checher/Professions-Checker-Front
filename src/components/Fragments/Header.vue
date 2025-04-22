@@ -1,4 +1,14 @@
 <script setup>
+import { useAuth } from '@/composables/useAuth.js'
+import { RouterLink, useRouter } from 'vue-router'
+
+const { isAuthenticated, logout } = useAuth()
+const router = useRouter()
+
+function handleLogout() {
+  logout()
+  router.push('/login')
+}
 </script>
 
 <template>
@@ -10,29 +20,25 @@
         <RouterLink to="/professions" class="nav-option">Profesiones</RouterLink>
         <RouterLink to="/companies" class="nav-option">Empresas</RouterLink>
         <RouterLink to="/about" class="nav-option">Nosotros</RouterLink>
+
+        <template v-if="!isAuthenticated">
+          <RouterLink to="/register" class="nav-option">Registrarse</RouterLink>
+          <RouterLink to="/login" class="nav-option">Iniciar sesión</RouterLink>
+        </template>
+
+        <template v-else>
+          <RouterLink to="/profile" class="nav-option">Mi Perfil</RouterLink>
+          <button @click="handleLogout" class="nav-option">Cerrar sesión</button>
+        </template>
       </div>
     </nav>
-  </header>  
+  </header>
 </template>
 
 <style scoped>
-  /*
-  :root {
-    --primary-color: #DC3545 ; Rojo
-    --secondary-color: #F8F9FA ; Blanco
-    --tertiary-color: #343A40; Gris
-
-    --text-color: #212529; 
-    --hover-color: #C82333;
-
-    --font-size-base: 16px;
-    --font-family: Arial, sans-serif;
-  }
-  */
-
-  /* Estilos del header */
 .header {
-  position: fixed;
+  /* Usa sticky en lugar de fixed para mantener el flujo */
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;
@@ -41,16 +47,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transition: transform 0.3s ease-in-out;
-  z-index: 1000;
+  z-index: 1000; /* Asegura que esté por encima */
 }
 
-.header:hover {
-  transform: translateY(-10px);
-}
-
-
-/* Barra de navegación con flexbox */
 .nav-bar {
   display: flex;
   align-items: center;
@@ -58,7 +57,6 @@
   justify-content: space-between;
 }
 
-/* Estilos del nombre de la aplicación */
 .app-name {
   font-size: 24px;
   font-weight: bold;
@@ -71,18 +69,18 @@
   gap: 20px;
 }
 
-
-/* Estilos de los enlaces */
 .nav-option {
   color: var(--secondary-color);
   text-decoration: none;
   font-weight: bold;
   font-size: 18px;
   padding: 8px 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
 }
 
-/* Efecto hover */
 .nav-option:hover {
   background-color: var(--secondary-color);
   color: var(--hover-color);
