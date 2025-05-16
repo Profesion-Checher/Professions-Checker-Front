@@ -7,14 +7,19 @@ import UserRegister from "../pages/users/UserRegister.vue";
 import UserLogin from "../pages/users/UserLogin.vue";
 import UserProfile from "../pages/users/UserProfile.vue";
 
+
 const routes = [
   { path: '/', component: Home, meta: { title: 'Home' } },
+  { path: '/about', component: About, meta: { title: 'About' } },
+  
+  
   { path: '/professions', component: ProfessionList, meta: { title: 'Profesiones' } },
-  { path: '/professions/:id', component: ProfesionDetails, meta: {title: 'Detalles'} },
+  { path: '/professions/:id', component: ProfesionDetails, meta: {} },
+  
+  { path: '/profile', component: UserProfile, meta: {title: 'Perfil'} },
+
   { path: '/login', component: UserLogin, meta: { title: 'Iniciar sesión' } },
   { path: '/register', component: UserRegister, meta: {title: 'Register'} },
-  { path: '/profile', component: UserProfile, meta: {} },
-  { path: '/about', component: About, meta: { title: 'About' } },
 ]
 
 const router = createRouter({

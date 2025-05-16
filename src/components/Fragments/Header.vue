@@ -13,7 +13,7 @@ function handleLogout() {
 
 <template>
   <header class="header">
-    <nav class="nav-bar">
+    <nav class="container nav-bar">
       <h1 class="app-name">Professions Checker</h1>
       <div class="nav-buttons">
         <RouterLink to="/" class="nav-option">Inicio</RouterLink>
@@ -37,23 +37,24 @@ function handleLogout() {
 
 <style scoped>
 .header {
-  /* Usa sticky en lugar de fixed para mantener el flujo */
   position: sticky;
   top: 0;
   left: 0;
   width: 100%;
   background-color: var(--primary-color);
-  padding: 20px 50px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  z-index: 1000; /* Asegura que esté por encima */
+  padding: 20px 0;
+  z-index: 1000;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
 .nav-bar {
   display: flex;
   align-items: center;
-  width: 90%;
   justify-content: space-between;
 }
 

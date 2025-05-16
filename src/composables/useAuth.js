@@ -1,17 +1,34 @@
 import { ref, watchEffect } from 'vue'
 
-// Estado reactivo global
-const isAuthenticated = ref(!!localStorage.getItem('access'))
+const isAuthenticated = ref(false)
 
-// Si alguien modifica localStorage manualmente, mantenemos el ref sincronizado
-watchEffect(() => {
-  isAuthenticated.value = !!localStorage.getItem('access')
-})
+function parseJwt(token) {
+  try {
+    return JSON.parse(atob(token.split('.')[1]))
+  } catch (_) {
+    return null
+  }
+}
+
+function isAccessTokenValid() {
+  const token = localStorage.getItem('access')
+  if (!token) return false
+  const payload = parseJwt(token)
+  if (!payload || !payload.exp) return false
+  return Date.now() < payload.exp * 1000
+}
+
+function syncAuthStatus() {
+  isAuthenticated.value = isAccessTokenValid()
+}
+
+// Ejecutar al cargar el archivo
+syncAuthStatus()
 
 function login(accessToken, refreshToken) {
   localStorage.setItem('access', accessToken)
   localStorage.setItem('refresh', refreshToken)
-  isAuthenticated.value = true
+  syncAuthStatus()
 }
 
 function logout() {

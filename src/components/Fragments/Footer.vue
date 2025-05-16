@@ -2,7 +2,9 @@
 
 <template>
   <footer class="footer">
-    <p>&copy; 2025 Professions Checker. Todos los derechos reservados.</p>
+    <div class="container">
+      <p>&copy; 2025 Professions Checker. Todos los derechos reservados.</p>
+    </div>
   </footer>
 </template>
 
@@ -13,5 +15,11 @@
   text-align: center;
   padding: 15px 0;
   width: 100%;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 </style>
