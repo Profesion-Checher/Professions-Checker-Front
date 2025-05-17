@@ -77,7 +77,7 @@ onMounted(async () => {
       new Chart(ctx, {
         type: "line",
         data: {
-          labels: ["2026", "2027", "2028"],
+          labels: ["2026", "2027", "2028", "2029", "2030"],
           datasets: [{
             label: "Proyección Salarial",
             data: profession.value.future_salaries,
