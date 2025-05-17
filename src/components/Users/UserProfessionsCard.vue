@@ -1,3 +1,9 @@
+<script setup>
+const props = defineProps({
+  user: Object
+})
+</script>
+
 <template>
   <div class="user-professions-card" v-if="user.interested_professions.length > 0">
     <h2>Mis Profesiones de Interés</h2>
@@ -9,30 +15,29 @@
       </li>
     </ul>
   </div>
-  <div v-else>
+  <div v-else class="no-professions">
     <p>No tienes profesiones marcadas como interés.</p>
   </div>
 </template>
-
-<script setup>
-const props = defineProps({
-  user: Object
-})
-</script>
 
 <style scoped>
 .user-professions-card {
   max-width: 600px;
   margin: 20px auto;
-  background: #f7f9fc;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  background: #1f2937; /* gris oscuro */
+  border-radius: 0.75rem;
+  padding: 2rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  color: #f9fafb; /* texto claro */
+  text-align: left;
 }
 
 .user-professions-card h2 {
-  margin-bottom: 15px;
-  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #60a5fa; /* azul claro */
+  border-bottom: 2px solid #3b82f6;
+  padding-bottom: 0.5rem;
 }
 
 .user-professions-card ul {
@@ -42,8 +47,8 @@ const props = defineProps({
 }
 
 .profession-item {
-  padding: 15px;
-  border-bottom: 1px solid #ddd;
+  padding: 1rem 0;
+  border-bottom: 1px solid #4b5563; /* gris intermedio */
 }
 
 .profession-item:last-child {
@@ -51,12 +56,25 @@ const props = defineProps({
 }
 
 .profession-item strong {
-  font-size: 18px;
-  color: #2e86de;
+  font-size: 1.1rem;
+  color: #93c5fd; /* azul suave */
+  display: block;
+  margin-bottom: 0.25rem;
 }
 
 .profession-item p {
-  margin: 5px 0;
-  color: #34495e;
+  margin: 0.2rem 0;
+  color: #d1d5db; /* gris claro */
+}
+
+.no-professions {
+  max-width: 600px;
+  margin: 20px auto;
+  background: #1f2937;
+  color: #f9fafb;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  text-align: left;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 </style>

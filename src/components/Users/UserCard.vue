@@ -1,3 +1,9 @@
+<script setup>
+const prop = defineProps({
+  user: Object
+})
+</script>
+
 <template>
   <div class="user-card">
     <h3 class="card-title">Perfil de Usuario</h3>
@@ -11,33 +17,39 @@
   </div>
 </template>
 
-<script setup>
-const prop = defineProps({
-  user: Object
-})
-</script>
-
 <style scoped>
 .user-card {
-  background-color: white;
-  padding: 1.5rem;
-  border-radius: 0.75rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #1f2937; /* dark gray */
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   max-width: 100%;
+  color: #f9fafb; /* text color light */
+  border: 1px solid #374151;
+  transition: transform 0.2s ease;
+}
+
+.user-card:hover {
+  transform: translateY(-2px);
 }
 
 .card-title {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: bold;
-  margin-bottom: 1rem;
-  color: #1f2937; /* gray-800 */
+  margin-bottom: 1.5rem;
+  color: #60a5fa; /* blue-400 */
+  border-bottom: 2px solid #3b82f6;
+  padding-bottom: 0.5rem;
 }
 
-.card-content {
-  color: #374151; /* gray-700 */
+.card-content p {
+  margin-bottom: 0.75rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
 }
 
 .label {
-  font-weight: 600;
+  font-weight: 700;
+  color: #93c5fd; /* blue-300 */
 }
 </style>

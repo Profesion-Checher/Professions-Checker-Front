@@ -4,7 +4,7 @@
     <UserProfessionsCard v-if="user" :user="user"/>
 
     <!-- Botón de cerrar sesión -->
-    <button @click="handleLogout" class="mt-6 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+    <button @click="handleLogout" class="logout-button">
       Cerrar sesión
     </button>
   </div>
@@ -40,3 +40,25 @@ const getUserProfile = async () => {
 
 onMounted(getUserProfile);
 </script>
+
+<style scoped>
+.logout-button {
+  margin-top: 1.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #ef4444; /* bg-red-500 */
+  color: white;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease-in-out;
+  border: none;
+  cursor: pointer;
+}
+.logout-button:hover {
+  background-color: #dc2626; /* hover:bg-red-600 */
+}
+.logout-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(252, 165, 165, 0.5); /* focus:ring-red-400 */
+}
+</style>

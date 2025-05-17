@@ -18,8 +18,6 @@ function handleLogout() {
       <div class="nav-buttons">
         <RouterLink to="/" class="nav-option">Inicio</RouterLink>
         <RouterLink to="/professions" class="nav-option">Profesiones</RouterLink>
-        <RouterLink to="/companies" class="nav-option">Empresas</RouterLink>
-        <RouterLink to="/about" class="nav-option">Nosotros</RouterLink>
 
         <template v-if="!isAuthenticated">
           <RouterLink to="/register" class="nav-option">Registrarse</RouterLink>
