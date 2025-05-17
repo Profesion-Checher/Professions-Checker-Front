@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref, nextTick} from "vue";
-import { useRoute } from "vue-router";
+import {useAuth} from '@/composables/useAuth.js';
+import axios from "axios";
 import {
   Chart,
   LineController,
@@ -23,9 +24,41 @@ Chart.register(
   Tooltip,
   Legend
 )
-const route = useRoute();
+
 const profession = ref(null)
 const canvasRef = ref(null);
+const { isAuthenticated } = useAuth()
+const API_USER_ADD_PROFESSIONS = import.meta.env.VITE_API_USER_ADD_PROFESSIONS
+
+const alreadySent = ref(false);
+
+const handleInterest = async () => {
+  if (!profession.value) return;
+
+  const token = localStorage.getItem('access');
+  if (!token) {
+    alert("Debes iniciar sesión para marcar interés.");
+    return;
+  }
+
+  try {
+    const response = await axios.post(API_USER_ADD_PROFESSIONS, 
+      { profession_id: profession.value.id },
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    );
+    alert(response.data.message);
+    alreadySent.value = true;
+  } catch (error) {
+    console.error('Error agregando profesión de interés:', error);
+    if (error.response) {
+      alert(`Error: ${error.response.data.error || 'No se pudo agregar la profesión.'}`);
+    } else {
+      alert('Error al conectar con el servidor.');
+    }
+  }
+};
 
 
 onMounted(async () => {
@@ -135,7 +168,11 @@ onMounted(async () => {
 
 <template>
   <div v-if="profession" class="details-wrapper">
-    <h1 class="title">{{ profession.profession_name }}: {{profession.experience}}</h1>
+    <button v-if="isAuthenticated" class="interest-button" @click="handleInterest">
+      Me interesa
+    </button>
+
+    <h1 class="title">{{ profession.profession_name }}: {{ profession.experience }}</h1>
     <p class="salary">Salario actual: <span>${{ profession.current_salary.toLocaleString() }}</span></p>
 
     <div class="chart-container">
@@ -154,7 +191,6 @@ onMounted(async () => {
     <p>No hay información disponible.</p>
   </div>
 </template>
-
 
 <style scoped>
 .details-wrapper {
@@ -220,5 +256,27 @@ onMounted(async () => {
   font-size: 18px;
   padding: 40px;
   color: #888;
+}
+
+.interest-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #2e86de;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.interest-button:hover {
+  background-color: #1b4f72;
+}
+
+.details-wrapper {
+  position: relative; /* Asegura que el botón se posicione respecto a este contenedor */
 }
 </style>

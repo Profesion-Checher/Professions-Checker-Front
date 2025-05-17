@@ -6,6 +6,7 @@ import ProfesionDetails from "@/pages/Professions/ProfessionDetails.vue"
 import UserRegister from "../pages/users/UserRegister.vue";
 import UserLogin from "../pages/users/UserLogin.vue";
 import UserProfile from "../pages/users/UserProfile.vue";
+import { useAuth } from '@/composables/useAuth.js'
 
 
 const routes = [
@@ -25,6 +26,18 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const { isAuthenticated } = useAuth()
+
+  if (to.meta.requiresAuth && !isAuthenticated.value) {
+    next({ path: '/login' })
+  } else if ((to.path === '/login' || to.path === '/register') && isAuthenticated.value) {
+    next({ path: '/' })
+  } else {
+    next()
+  }
 })
 
 router.afterEach((to) => {

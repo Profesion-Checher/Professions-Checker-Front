@@ -1,8 +1,8 @@
-import { ref, watchEffect } from 'vue'
+import { ref } from 'vue'
 
 const isAuthenticated = ref(false)
 
-function parseJwt(token) {
+const parseJwt = (token) => {
   try {
     return JSON.parse(atob(token.split('.')[1]))
   } catch (_) {
@@ -10,7 +10,7 @@ function parseJwt(token) {
   }
 }
 
-function isAccessTokenValid() {
+const isAccessTokenValid  = () => {
   const token = localStorage.getItem('access')
   if (!token) return false
   const payload = parseJwt(token)
@@ -18,25 +18,22 @@ function isAccessTokenValid() {
   return Date.now() < payload.exp * 1000
 }
 
-function syncAuthStatus() {
+export const syncAuthStatus  = () => {
   isAuthenticated.value = isAccessTokenValid()
 }
 
-// Ejecutar al cargar el archivo
-syncAuthStatus()
-
-function login(accessToken, refreshToken) {
+const login = (accessToken, refreshToken) => {
   localStorage.setItem('access', accessToken)
   localStorage.setItem('refresh', refreshToken)
   syncAuthStatus()
 }
 
-function logout() {
+const logout  = () => {
   localStorage.removeItem('access')
   localStorage.removeItem('refresh')
   isAuthenticated.value = false
 }
 
-export function useAuth() {
-  return { isAuthenticated, login, logout }
+export const useAuth  = () => {
+  return { isAuthenticated, login, logout, syncAuthStatus }
 }
