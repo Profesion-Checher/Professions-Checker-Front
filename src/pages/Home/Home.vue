@@ -1,16 +1,36 @@
 <script setup>
-import ProfessionBarView from '@/components/Professions/ProfessionBarView.vue'
-import { useProfessions } from '@/composables/useProfessions.js'
+import axios from 'axios'
 
-const { data, loading, error } = useProfessions()
+const API_OLD_AI_MODEL = import.meta.env.VITE_API_OLD_AI_MODEL
+const API_NEW_AI_MODEL = import.meta.env.VITE_API_NEW_AI_MODEL
+const getOldData = async () => {
+  try {
+    await axios.get(API_OLD_AI_MODEL)
+    console.log("Viejos datos traidos con exito")
+  } catch (error) {
+    console.error('Error al ejecutar acción:', error)
+  }
+}
+
+const getNewData = async () => {
+  try {
+    await axios.get(API_NEW_AI_MODEL)
+    console.log("Viejos datos traidos con exito")
+  } catch (error) {
+    console.error('Error al ejecutar acción:', error)
+  }
+}
+
 </script>
 
 <template>
-  <div v-if="loading">Cargando...</div>
-  <div v-else-if="error" class="error">{{ error }}</div>
-  <div v-else class="professions-container">
-    <ProfessionBarView v-for="profession in data" :key="profession.pk" :profession="profession" />
-  </div>
+  <button @click="getOldData">
+    Viejo modelo
+  </button>
+
+  <button @click="getNewData">
+    Nuevo modelo
+  </button>
 </template>
 
 <style scoped>
