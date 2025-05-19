@@ -27,11 +27,13 @@ const handleLogout = () => {
   router.push('/login');
 };
 
+const API_USER_PROFILE = import.meta.env.VITE_API_USER_PROFILE
+
 const getUserProfile = async () => {
   try {
-    const response = await axios.get('/users/profile/');
+    const response = await axios.get(API_USER_PROFILE);
     user.value = response.data;
-    console.log(response.data)
+    console.log(response.data);
   } catch (error) {
     console.error("Error al obtener el perfil:", error);
     router.push('/login');
